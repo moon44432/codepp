@@ -30,6 +30,7 @@ Begin VB.Form frmMain
             Object.Width           =   847
             MinWidth        =   847
             TextSave        =   "NUM"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -39,6 +40,7 @@ Begin VB.Form frmMain
             Object.Width           =   1129
             MinWidth        =   1129
             TextSave        =   "CAPS"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -48,6 +50,7 @@ Begin VB.Form frmMain
             Object.Width           =   847
             MinWidth        =   847
             TextSave        =   "INS"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -116,7 +119,7 @@ Begin VB.Form frmMain
          Caption         =   "새 파일(&N)"
          Shortcut        =   ^N
       End
-      Begin VB.Menu mnubar 
+      Begin VB.Menu mnuBar 
          Caption         =   "-"
       End
       Begin VB.Menu mnuOpen 
@@ -139,6 +142,17 @@ Begin VB.Form frmMain
    End
    Begin VB.Menu mnuEdit 
       Caption         =   "편집(&E)"
+      Begin VB.Menu mnuUndo 
+         Caption         =   "실행 취소(&U)"
+         Shortcut        =   ^Z
+      End
+      Begin VB.Menu mnuRedo 
+         Caption         =   "다시 실행"
+         Shortcut        =   ^Y
+      End
+      Begin VB.Menu mnubar7 
+         Caption         =   "-"
+      End
       Begin VB.Menu mnuCut 
          Caption         =   "잘라내기(&X)"
          Shortcut        =   ^X
@@ -163,7 +177,7 @@ Begin VB.Form frmMain
          Shortcut        =   ^F
       End
       Begin VB.Menu mnuReplace 
-         Caption         =   "바꾸기(&R)"
+         Caption         =   "바꾸기(&H)"
          Shortcut        =   ^H
       End
    End
@@ -219,6 +233,8 @@ End Type
 Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (lpInitCtrls As INITCOMMONCONTROLSEX_TYPE) As Long
 Private Const ICC_INTERNET_CLASSES = &H800
 
+'Flags
+
 Dim OpenedFile As String
 Dim ifFileChanged As Boolean
 Dim indent As Integer
@@ -228,7 +244,7 @@ Dim ifFileOpened As Boolean
 Function SaveFile()
 On Error GoTo Err
     CommonDialog1.CancelError = True
-    CommonDialog1.Filter = "모든 파일|*.*"
+    CommonDialog1.Filter = "모든 파일|*.*|C 소스 (*.c)|*.c|C++ 소스 (*.cpp;*.c++;*.hpp;*.h++;*.h)|*.cpp;*.c++;*.hpp;*.h++;*.h|C# 소스 (*.cs;*.csx;*.cake)|*.cs;*.csx;*.cake|Go 소스 (*.go)|*.go|Java 소스 (*.java;*.jav)|*.java;*.jav|JavaScript 소스 (*.js)|*.js|NVSPL2 소스 (*.nvs;*.nvspl)|*.nvs;*.nvspl|PHP 소스 (*.php;*.php4;*.php5;*.phtml;*.ctp)|*.php;*.php4;*.php5;*.phtml;*.ctp|Python 소스 (*.py;*.rpy;*.pyw;*.cpy;*.pyi;*.ipy)|*.py;*.rpy;*.pyw;*.cpy;*.pyi;*.ipy|R 소스 (*.r;*.rhistory;*.rprofile;*.rt)|*.r;*.rhistory;*.rprofile;*.rt|Rust 소스 (*.rs)|*.rs|TypeScript 소스 (*.ts)|*.ts|Visual Basic 소스 (*.vb;*.vbs;*.bas)|*.vb;*.vbs;*.bas|HTML 파일 (*.html;*.htm;*.xhtml;*.jsp;*.asp;*.aspx)|*.html;*.htm;*.xhtml;*.jsp;*.asp;*.aspx|CSS 파일 (*.css)|*.css|SCSS 파일 (*.scss)|*.scss|XML 파일 (*.xml)|*.xml|텍스트 파일 (*.txt)|*.txt|설정 파일 (*.ini)|*.ini|배치 파일 (*.bat;*.cmd)|*.bat;*.cmd|JSON 파일 (*.json)|*.json|YAML 파일 (*.yml;*.eyaml;*.eyml;*.yaml)|*.yml;*.eyaml;*.eyml;*.yaml|Markdown 파일 (*.md)|*.md"
     CommonDialog1.FilterIndex = 1
     CommonDialog1.DialogTitle = "파일 저장"
     CommonDialog1.InitDir = "C:\"
@@ -257,7 +273,7 @@ End Function
 Function LoadFile()
 On Error GoTo Err
     CommonDialog1.CancelError = True
-    CommonDialog1.Filter = "모든 파일|*.*"
+    CommonDialog1.Filter = "모든 파일|*.*|C 소스 (*.c)|*.c|C++ 소스 (*.cpp;*.c++;*.hpp;*.h++;*.h)|*.cpp;*.c++;*.hpp;*.h++;*.h|C# 소스 (*.cs;*.csx;*.cake)|*.cs;*.csx;*.cake|Go 소스 (*.go)|*.go|Java 소스 (*.java;*.jav)|*.java;*.jav|JavaScript 소스 (*.js)|*.js|NVSPL2 소스 (*.nvs;*.nvspl)|*.nvs;*.nvspl|PHP 소스 (*.php;*.php4;*.php5;*.phtml;*.ctp)|*.php;*.php4;*.php5;*.phtml;*.ctp|Python 소스 (*.py;*.rpy;*.pyw;*.cpy;*.pyi;*.ipy)|*.py;*.rpy;*.pyw;*.cpy;*.pyi;*.ipy|R 소스 (*.r;*.rhistory;*.rprofile;*.rt)|*.r;*.rhistory;*.rprofile;*.rt|Rust 소스 (*.rs)|*.rs|TypeScript 소스 (*.ts)|*.ts|Visual Basic 소스 (*.vb;*.vbs;*.bas)|*.vb;*.vbs;*.bas|HTML 파일 (*.html;*.htm;*.xhtml;*.jsp;*.asp;*.aspx)|*.html;*.htm;*.xhtml;*.jsp;*.asp;*.aspx|CSS 파일 (*.css)|*.css|SCSS 파일 (*.scss)|*.scss|XML 파일 (*.xml)|*.xml|텍스트 파일 (*.txt)|*.txt|설정 파일 (*.ini)|*.ini|배치 파일 (*.bat;*.cmd)|*.bat;*.cmd|JSON 파일 (*.json)|*.json|YAML 파일 (*.yml;*.eyaml;*.eyml;*.yaml)|*.yml;*.eyaml;*.eyml;*.yaml|Markdown 파일 (*.md)|*.md"
     CommonDialog1.FilterIndex = 1
     CommonDialog1.DialogTitle = "파일 열기"
     CommonDialog1.InitDir = "C:\"
@@ -278,6 +294,9 @@ On Error GoTo Err
     frmMain.Caption = OpenedFile & " - Code++"
     ifFileChanged = False
     ifFileOpened = True
+    
+    mnuRunApp.Enabled = True
+    mnuCompile.Enabled = True
 Err:
 End Function
 
@@ -373,8 +392,6 @@ End Sub
 
 Private Sub mnuOpen_Click()
     LoadFile
-    mnuRunApp.Enabled = True
-    mnuCompile.Enabled = True
 End Sub
 
 Private Sub mnuQuit_Click()

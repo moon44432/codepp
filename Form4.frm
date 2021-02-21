@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmConfig 
    BackColor       =   &H00FFFFFF&
-   BorderStyle     =   1  '단일 고정
+   BorderStyle     =   4  '고정 도구 창
    Caption         =   "컴파일 및 실행 설정"
    ClientHeight    =   2760
    ClientLeft      =   45
@@ -13,6 +13,7 @@ Begin VB.Form frmConfig
    MinButton       =   0   'False
    ScaleHeight     =   2760
    ScaleWidth      =   6330
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows 기본값
    Begin VB.CommandButton Command1 
       Caption         =   "확인(&O)"

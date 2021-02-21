@@ -208,8 +208,10 @@ Private Sub cmdReplaceAll_Click()
                     frmMain.Text1.SelStart = FindText - 1
                     frmMain.Text1.SelLength = Len(TextFind)
                     frmMain.Text1.SelText = TextReplace
+                    FindText = FindText + Len(TextReplace) - Len(TextFind) + 1 '중복을 막기 위함
                 End If
            Loop
+           MsgBox "바꾸기가 끝났습니다.", vbExclamation, "바꾸기"
         End If
     End If
 End Sub

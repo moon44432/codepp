@@ -3,7 +3,7 @@ Begin VB.Form frmInfo
    BackColor       =   &H00FFFFFF&
    BorderStyle     =   1  '단일 고정
    Caption         =   "Code++ 정보"
-   ClientHeight    =   5190
+   ClientHeight    =   6060
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   7665
@@ -11,9 +11,29 @@ Begin VB.Form frmInfo
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5190
+   ScaleHeight     =   6060
    ScaleWidth      =   7665
    StartUpPosition =   3  'Windows 기본값
+   Begin VB.TextBox Text1 
+      BeginProperty Font 
+         Name            =   "맑은 고딕"
+         Size            =   9
+         Charset         =   129
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   1215
+      Left            =   240
+      Locked          =   -1  'True
+      MultiLine       =   -1  'True
+      ScrollBars      =   2  '수직
+      TabIndex        =   4
+      Text            =   "Form2.frx":1542
+      Top             =   4080
+      Width           =   7215
+   End
    Begin VB.CommandButton Command1 
       Caption         =   "확인"
       BeginProperty Font 
@@ -28,27 +48,8 @@ Begin VB.Form frmInfo
       Height          =   375
       Left            =   6240
       TabIndex        =   3
-      Top             =   4680
+      Top             =   5520
       Width           =   1335
-   End
-   Begin VB.Label Label1 
-      BackStyle       =   0  '투명
-      Caption         =   "Naissoft Code++는 오픈 소스 소프트웨어입니다. 상업 및 재배포 목적을 제외한 어떤 목적이라도 코드를 활용할 수 있습니다."
-      BeginProperty Font 
-         Name            =   "맑은 고딕"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   495
-      Index           =   2
-      Left            =   120
-      TabIndex        =   4
-      Top             =   4080
-      Width           =   7455
    End
    Begin VB.Label Label1 
       BackStyle       =   0  '투명
@@ -66,7 +67,7 @@ Begin VB.Form frmInfo
       Index           =   1
       Left            =   120
       TabIndex        =   2
-      Top             =   4800
+      Top             =   5640
       Width           =   3615
    End
    Begin VB.Label lblVer 
@@ -109,7 +110,7 @@ Begin VB.Form frmInfo
    Begin VB.Image Image1 
       Height          =   3495
       Left            =   0
-      Picture         =   "Form2.frx":1542
+      Picture         =   "Form2.frx":15B5
       Top             =   0
       Width           =   7680
    End
