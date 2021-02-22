@@ -136,6 +136,9 @@ Begin VB.Form frmMain
       Begin VB.Menu mnubar2 
          Caption         =   "-"
       End
+      Begin VB.Menu mnuSettings 
+         Caption         =   "통합 설정(&C)"
+      End
       Begin VB.Menu mnuQuit 
          Caption         =   "종료(&Q)"
       End
@@ -202,7 +205,7 @@ Begin VB.Form frmMain
       Begin VB.Menu mnubar6 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuOption 
+      Begin VB.Menu mnuConfig 
          Caption         =   "컴파일 및 실행 설정"
          Shortcut        =   {F4}
       End
@@ -353,6 +356,10 @@ Private Sub mnuCompile_Click()
     MsgBox """" & Label1.Caption & """ " & Label2.Caption & " """ & OpenedFile & """", , "컴파일 중..."
 End Sub
 
+Private Sub mnuConfig_Click()
+    frmConfig.Show
+End Sub
+
 Private Sub mnuCopy_Click()
    Clipboard.Clear
    Clipboard.SetText Text1.SelText
@@ -370,10 +377,7 @@ End Sub
 
 Private Sub mnuHelp_Click()
     MsgBox "아직 준비 중인 기능입니다.", vbInformation, "Code++"
-End Sub
-
-Private Sub mnuOption_Click()
-    frmConfig.Show
+    frmHelp.Show
 End Sub
 
 Private Sub mnuPaste_Click()
@@ -419,6 +423,10 @@ End Sub
 
 Private Sub mnuSaveOtherName_Click()
     SaveFile
+End Sub
+
+Private Sub mnuSettings_Click()
+    frmSettings.Show
 End Sub
 
 Private Sub mnuUndo_Click()
